@@ -1,20 +1,19 @@
-public class Piece {
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public abstract class Piece {
     private final boolean whiteColor; // false = black
     private boolean alreadyMoved;
-    private final PieceType pieceType;
-    private int coordY;
-    private int coordX;
+    protected Point coords;
 
-    enum PieceType {
-        PAWN, ROOK, KNIGHT, BISHOP, KING, QUEEN
-    }
 
-    public Piece(boolean whiteColor, boolean alreadyMoved, PieceType pieceType, int coordY, int coordX) {
+
+    public Piece(boolean whiteColor, boolean alreadyMoved, Point coords) {
         this.whiteColor = whiteColor;
         this.alreadyMoved = alreadyMoved;
-        this.pieceType = pieceType;
-        this.coordY = coordY;
-        this.coordX = coordX;
+        this.coords = coords;
     }
 
     public boolean isWhiteColor() {
@@ -25,27 +24,31 @@ public class Piece {
         return alreadyMoved;
     }
 
-    public PieceType getPieceType() {
-        return pieceType;
-    }
-
     public void setAlreadyMoved(boolean alreadyMoved) {
         this.alreadyMoved = alreadyMoved;
     }
 
-    public int getCoordY() {
-        return coordY;
+    public Point getCoords() {
+        return coords;
     }
 
-    public void setCoordY(int coordY) {
-        this.coordY = coordY;
+    public void setCoords(Point coords) {
+        this.coords = coords;
     }
 
-    public int getCoordX() {
-        return coordX;
+    protected abstract List<Point> getHitPoints(List<Piece> pieces) throws Exception;
+    protected abstract List<Point> getMovePoints(List<Piece> pieces) throws Exception;
+    protected boolean isPointOnBoard(Point p){
+        return p.x >= 0 && p.x <= 7 && p.y >= 0 && p.y <= 7;
     }
-
-    public void setCoordX(int coordX) {
-        this.coordX = coordX;
+    protected Piece pieceAtPoint(List<Piece> pieces, Point p) throws Exception{
+        List<Piece> result = pieces.stream().filter(piece -> piece.coords.x == p.x && piece.coords.y == p.y).collect(Collectors.toList());
+        if (result.size() == 0){
+            return null;
+        }else if (result.size() == 1){
+            return result.get(0);
+        }else{
+            throw new Exception();
+        }
     }
 }
