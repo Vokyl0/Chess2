@@ -2,8 +2,8 @@ import java.awt.*;
 import java.util.List;
 
 public class King extends Piece{
-    public King(boolean whiteColor, boolean alreadyMoved, Point coords){
-        super(whiteColor,alreadyMoved,coords);
+    public King(boolean whiteColor, Point coords){
+        super(whiteColor,coords);
     }
 
     @Override

@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Bishop extends Piece{
 
-    public Bishop(boolean whiteColor, boolean alreadyMoved, Point coords){
-        super(whiteColor,alreadyMoved,coords);
+    public Bishop(boolean whiteColor, Point coords){
+        super(whiteColor, coords);
     }
 
     @Override

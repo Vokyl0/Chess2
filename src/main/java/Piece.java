@@ -10,9 +10,9 @@ public abstract class Piece {
 
 
 
-    public Piece(boolean whiteColor, boolean alreadyMoved, Point coords) {
+    public Piece(boolean whiteColor, Point coords) {
         this.whiteColor = whiteColor;
-        this.alreadyMoved = alreadyMoved;
+        this.alreadyMoved = false;
         this.coords = coords;
     }
 

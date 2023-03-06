@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    List<Piece> pieces;
+    private List<Piece> pieces;
 
     public Board() {
         pieces = new ArrayList<>();
@@ -10,6 +10,9 @@ public class Board {
     }
     private void addDefaultPieces(){
 
+    }
+    private void addPiece(Piece piece){
+        pieces.add(piece);
     }
     private boolean validateMove(int sourseY, int sourceX, int destY, int destX){
         return true;
