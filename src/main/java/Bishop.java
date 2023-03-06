@@ -17,14 +17,22 @@ public class Bishop extends Piece{
     public List<Point> getMovePoints(List<Piece> pieces) throws Exception{
         List<Point> result = new ArrayList<>();
         Point currentPoint = new Point(coords.x,coords.y);
-        currentPoint.x -= 1;
-        currentPoint.y -= 1;
-        while (isPointOnBoard(currentPoint) && (pieceAtPoint(pieces,currentPoint) == null)){
-            result.add(new Point(currentPoint.x, currentPoint.y));
+        Point[] directionPoints = {new Point(-1,-1),new Point(-1,1),new Point(1,-1),new Point(1,1)};
+        for (int i = 0; i < directionPoints.length; i++) {
+            currentPoint.x = coords.x;
+            currentPoint.y = coords.y;
+            currentPoint.x += directionPoints[i].x;
+            currentPoint.y += directionPoints[i].y;
+            while (isPointOnBoard(currentPoint) && (pieceAtPoint(pieces,currentPoint) == null)){
+                result.add(new Point(currentPoint.x, currentPoint.y));
+                currentPoint.x += directionPoints[i].x;
+                currentPoint.y += directionPoints[i].y;
+            }
+            if (pieceAtPoint(pieces,currentPoint) != null && (pieceAtPoint(pieces,currentPoint).isWhiteColor() != this.isWhiteColor())){
+                result.add(new Point(currentPoint.x, currentPoint.y));
+            }
         }
-        if (pieceAtPoint(pieces,currentPoint) != null && (pieceAtPoint(pieces,currentPoint).isWhiteColor() != this.isWhiteColor())){
-            result.add(new Point(currentPoint.x, currentPoint.y));
-        }
+
 
         return result;
     }
